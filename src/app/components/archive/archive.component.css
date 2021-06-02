@@ -1,0 +1,20 @@
+.fal {
+    float: right;
+    /* color: #f359 */
+}
+
+.fal :hover {
+    color: #f359
+}
+
+.container {
+    background-color: #667EEA
+}
+
+.btn-lg {
+    float: right;
+}
+
+button {
+    float: right;
+}

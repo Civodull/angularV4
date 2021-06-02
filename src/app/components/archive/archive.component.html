@@ -1,0 +1,46 @@
+<div class="container mt-3">
+    <div class="card">
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark" routerLink="/admin"><i class="fas fa-window-close"></i></button>
+        </div>
+        <div class="card-body">
+            <span class="h3" align="center">Utilisateurs supprimés
+             </span>
+            <br/>
+            <br/>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search..." id="filter">
+            </div>
+            <div class="table-responsive-sm">
+                <table *ngIf="users.length > 0" class="table mt-4 table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Adresse</th>
+                            <th scope="col">Telephone</th>
+                            <th scope="col">Role</th>
+                            <th scope="col-2">Restaurer</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text" *ngFor="let item of users">
+                        <tr *ngIf="item.status ==1">
+                            <td>{{item.pseudo}}</td>
+                            <td>{{item.nom}}</td>
+                            <td>{{item.prenom}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.adresse}}</td>
+                            <td>{{item.telephone}}</td>
+                            <td>{{item.role}}</td>
+                            <td><i class="fas fa-trash-undo-alt text-info" title="Restaurer" [routerLink]="['/edith/', item.id]"></i></td>
+                            <!-- <td><i class="fas fa-trash-undo-alt" title="Restaurer" (click)="restaurer(item.id)" routerLink="/admin"></i></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
