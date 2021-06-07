@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable,Subject,combineLatest } from 'rxjs';
 import { UsersService } from 'src/app/services/users.service';
-import { CreateUsersComponent } from '../create-users/create-users.component'; 
+
 import Swal from 'sweetalert2'
 
 @Component({
@@ -14,18 +14,15 @@ import Swal from 'sweetalert2'
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  //debut
-
+  //debut paramettres/variables de recherche
+searchterm!:string;
+startAt=new Subject();
+endAt = new Subject();
+startobs =this.startAt.asObservable();
+endobs = this.endAt.asObservable();
 
   //fin
-  placements = ['top'];
-  popoverTitle = 'Are you sure?';
-  popoverMessage = 'Are you really <b>sure</b> you want to do this?';
-  confirmText = 'Yes <i class="fas fa-check"> </i>';
-  cancelText = 'No <i class="fas fa-times"></i>';
-  confirmClicked = false;
-  cancelClicked = false;
-  trackByValue: TrackByFunction<string> = (index, value) => value;
+
   //les messages d'erreurs
   creatUser:FormGroup;
   users:any[] = [];
@@ -59,9 +56,19 @@ this.id = this.aRouter.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     this.getUserDoc()
- //   Observable.combineLatest(this.startObs, this.endObs).subscibe((value:any) => {//
- //     this.firequery(value[0], value[1]).subscribe((clubs:any) =>this.clubs=clubs);
-  //  });
+ combineLatest(this.startobs, this.endobs).subscribe((value:any) => {//
+   this.firequery(value[0], value[1]).subscribe((users:any) =>
+   this.users=users);
+   });
+    //Fonction de recherche :
+  }
+  search($event: any){
+    let q = $event.target.value;
+    this.startAt.next(q);
+    this.endAt.next(q + "\uf8ff");
+  }
+  firequery(start: any,end: any):Observable<any> {
+    return this.firestore.collection('users', (ref: { limit: (arg0: number) => { (): any; new(): any; orderBy: { (arg0: string): { (): any; new(): any; startAt: { (arg0: any): { (): any; new(): any; endAt: { (arg0: any): { (): any; new(): any; valueChanges: { (): any; new(): any; }; }; new(): any; }; }; new(): any; }; }; new(): any; }; }; })=>ref.limit(4).orderBy('nom').startAt(start).endAt(end).valueChanges())
   }
 //Cette fonction interagit avec le service pour la recuperation du user
   getUserDoc(){
@@ -79,7 +86,6 @@ this.id = this.aRouter.snapshot.paramMap.get('id');
   }
   //Methode d'insersion 
   inserEdit() {
-
     const unUser:any={
       nom:this.creatUser.value.nom,
       prenom:this.creatUser.value.prenom,

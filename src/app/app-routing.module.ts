@@ -12,7 +12,7 @@ import { FinanceComponent } from './components/finance/finance.component';
 import { FormateurComponent } from './components/formateur/formateur.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'admin', pathMatch: 'full'},
+  {path: '', redirectTo: 'connexion', pathMatch: 'full'},
   {path: 'admin', component: ListUsersComponent},
  // {path: 'delete/:id', component: ListUsersComponent},
   {path: 'create', component: CreateUsersComponent},
@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'emailVerif', component: VerifyEmailComponent},
   {path: 'passForgot', component: ForgotPasswordComponent},
   {path: 'dashbord', component: DashboardComponent},
-  {path: '**', redirectTo: 'admin', pathMatch: 'full'}
+  {path: '**', redirectTo: 'connexion', pathMatch: 'full'}
   
 ];
 

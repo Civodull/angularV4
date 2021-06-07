@@ -9,11 +9,13 @@ import { ConnexionComponent } from '../connexion/connexion.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  
 @Output() isLogout = new EventEmitter<void>();
   constructor(public firebaseService: FirebaseService, 
     public firebaseAuth: AngularFireAuth,
-    public router: Router) { }
-
+    public router: Router,
+) { }
+   
   ngOnInit(): void {
   }
   loggout(){

@@ -9,7 +9,7 @@
             <br/>
             <br/>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search..." id="filter">
+                <input type="text" [(ngModel)]="searchterm" class="form-control" placeholder="Rechercher un utilisateur..." (change)="search($event)">
             </div>
 
             <div class="table-responsive-sm">

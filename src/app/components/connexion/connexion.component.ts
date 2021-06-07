@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import auth from 'firebase/app';
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent implements OnInit {
+  @Input()   nomUtil:any
   users:any[] = [];
   firestore: any;
   creatUser:FormGroup;
@@ -24,7 +25,7 @@ export class ConnexionComponent implements OnInit {
   statut:boolean = false;//utilisateur n'est pas supprimer
   isLoggedIn = false;
   isSignedIn: any;
-  
+
   titre='Ajouter un utilisateur';
     //Definir un tableau pour le role
   public roles:Array<UserInterface> = [{id:1, role:"Admin"},{id:2, role:"Etudiant"},{id:3, role:"Formateur"},{id:4, role:"Finance"}];
@@ -122,15 +123,19 @@ async signIn(email: string,password: string){
           switch(donnees.role){
             case 'Admin':
               this.router.navigate(['/admin']);
+              this.nomUtil = donnees.nom;
               break;
             case 'Etudiant':
               this.router.navigate(['/etudiant']);
+              this.nomUtil = donnees.nom;
               break;
             case 'Finance':
               this.router.navigate(['/finance']);
+              this.nomUtil = donnees.nom;
               break;
             case 'Formateur':
               this.router.navigate(['/formateur']);
+              this.nomUtil = donnees.nom;
               break;
           }
         }
